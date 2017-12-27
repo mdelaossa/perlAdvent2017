@@ -4,9 +4,6 @@ use warnings FATAL => 'all';
 use Module::Load;
 use HTTP::Server::Simple::CGI;
 use base qw(HTTP::Server::Simple::CGI);
-use CGI::Carp;
-
-use Data::Dumper; #TODO: REMOVE
 
 my %dispatch = (
     '/'      => \&resp_index,
@@ -66,7 +63,7 @@ sub resp_solve {
 sub _solve {
     my ( $day, $puzzle, $data ) = @_;
 
-    my $solver = "Advent::Day$day" . "::Puzzle$puzzle" ;
+    my $solver = "Advent::Day$day" . "::Puzzle$puzzle";
     load $solver;
 
     my @in = $solver->prepare_data($data);
