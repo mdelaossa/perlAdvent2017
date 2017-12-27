@@ -10,7 +10,7 @@ my @input = (
     [2, 4, 6, 8]
 );
 
-my $solution = Advent::Day2::Puzzle1::solve(@input);
+my $solution = Advent::Day2::Puzzle1->solve(@input);
 
 is $solution, 18;
 

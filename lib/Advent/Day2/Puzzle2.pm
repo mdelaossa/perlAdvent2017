@@ -3,6 +3,7 @@ use strict;
 use warnings FATAL => 'all';
 
 sub solve {
+    my $self = shift;
     my $checksum = 0;
 
     for (@_) {

@@ -10,7 +10,7 @@ for (@cases) {
     my ( $input, $expected ) = @{$_};
     print "Testing that $input returns $expected\n";
 
-    my $solution = Advent::Day1::Puzzle2::solve $input;
+    my $solution = Advent::Day1::Puzzle2->solve($input);
     is $solution, $expected;
 }
 

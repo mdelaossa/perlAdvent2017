@@ -5,6 +5,7 @@ use warnings FATAL => 'all';
 use List::Util qw(min max);
 
 sub solve {
+    my $self = shift;
     my $checksum = 0;
 
     for (@_) {

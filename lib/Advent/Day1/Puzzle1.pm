@@ -3,6 +3,7 @@ use strict;
 use warnings FATAL => 'all';
 
 sub solve {
+    my $self = shift;
     my @numbers = split( //, shift );
     my @sums = ();
     for my $i ( 0 .. $#numbers ) {

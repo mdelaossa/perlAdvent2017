@@ -5,6 +5,7 @@ use Advent::Day2::Puzzle1;
 use Advent::Day2::Puzzle2;
 
 sub solve {
+    my $self = shift;
     my $puzzle = shift;
 
     print "Solving puzzle #$puzzle\n";
@@ -25,9 +26,9 @@ sub solve {
     }
 
     if ($puzzle == 1) {
-        return Advent::Day2::Puzzle1::solve @lines
+        return Advent::Day2::Puzzle1->solve(@lines);
     } else {
-        return Advent::Day2::Puzzle2::solve @lines
+        return Advent::Day2::Puzzle2->solve(@lines);
     }
 }
 
