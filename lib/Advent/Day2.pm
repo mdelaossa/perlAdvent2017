@@ -9,11 +9,15 @@ sub solve {
 
     print "Solving puzzle #$puzzle\n";
 
-    print "Please provide each row in a new line. Send an empty line when done\n";
+    print "Please provide each row in a new line. Send an empty line or EOD when done\n";
     my @lines;
     my $continue = 1;
     while ($continue) {
         my $line = <STDIN>;
+        unless ($line) {
+            $continue = 0;
+            last;
+        }
         chomp $line;
         my @line = split( /\W+/, $line );
         push @lines, \@line if @line > 0;
