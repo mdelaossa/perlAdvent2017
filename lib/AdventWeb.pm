@@ -2,63 +2,23 @@ package AdventWeb;
 use strict;
 use warnings FATAL => 'all';
 use Module::Load;
-use HTTP::Server::Simple::CGI;
-use base qw(HTTP::Server::Simple::CGI);
+use Mojolicious::Lite;
 
-my %dispatch = (
-    '/'      => \&resp_index,
-    '/solve' => \&resp_solve
-);
+get '/' => sub {
+    shift->render( template => 'index' );
+};
 
-sub handle_request {
-    my $self = shift;
-    my $cgi  = shift;
+get '/:day/:puzzle' => sub {
+    my $c = shift;
 
-    my $path    = $cgi->path_info();
-    my $handler = $dispatch{$path};
+    my $day    = $c->param('day');
+    my $puzzle = $c->param('puzzle');
+    my $data   = $c->param('data');
 
-    if ( ref($handler) eq 'CODE' ) {
-        print "HTTP/1.0 200 OK\r\n";
-        $handler->($cgi);
-    }
-    else {
-        print "HTTP/1.0 404 Not found\r\n";
-        print $cgi->header,
-          $cgi->start_html('Not found'),
-          $cgi->h1('Not found'),
-          $cgi->end_html;
-    }
-}
+    $c->stash( solution => _solve( $day, $puzzle, $data ) );
 
-sub resp_index {
-    my $cgi = shift;
-    return if !ref $cgi;
-
-    print $cgi->header,
-      $cgi->start_html("Advent of Code 2017 Solutions"),
-      $cgi->h1("Advent of Code 2017 Solver"),
-      $cgi->p('GET /solve?day=&puzzle=&data= for the actual solver'),
-      $cgi->end_html;
-}
-
-sub resp_solve {
-    my $cgi = shift;
-    return if !ref $cgi;
-
-    my $day    = $cgi->param('day');
-    my $puzzle = $cgi->param('puzzle');
-    my $data   = $cgi->param('data');
-
-    print "day: $day, puzzle: $puzzle, data: $data";
-
-    my $solution = _solve( $day, $puzzle, $data );
-
-    print $cgi->header,
-      $cgi->start_html("Day$day Puzzle$puzzle Solution"),
-      $cgi->h1("Solution for Day$day Puzzle$puzzle"),
-      $cgi->p($solution),
-      $cgi->end_html;
-}
+    $c->render( template => 'solution' );
+};
 
 sub _solve {
     my ( $day, $puzzle, $data ) = @_;
@@ -74,3 +34,24 @@ sub _solve {
 }
 
 1;
+__DATA__
+
+@@ index.html.ep
+<!DOCTYPE html>
+<html>
+    <head><title>Advent of Code 2017 Solutions</title></head>
+    <body>
+        <h1>Advent of Code 2017 Solver</h1>
+        GET /solve/:day/:puzzle?data= for the actual solver'
+    </body>
+</html>
+
+@@ solution.html.ep
+<!DOCTYPE html>
+<html>
+    <head><title>Advent of Code 2017 Solutions</title></head>
+    <body>
+        <h1>Advent of Code 2017 Day <%= $day %> Puzzle <%= $puzzle %> Solution</h1>
+        <%= $solution %>
+    </body>
+</html>
