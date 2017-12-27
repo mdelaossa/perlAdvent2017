@@ -18,4 +18,8 @@ sub solve {
     return $sum;
 }
 
+sub prepare_data{
+    return $_[1] ;
+}
+
 1;

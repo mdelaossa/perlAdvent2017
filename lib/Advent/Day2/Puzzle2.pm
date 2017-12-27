@@ -25,4 +25,16 @@ sub _find_divisible {
     return $first > $second ? $first / $second : $second / $first;
 }
 
+sub prepare_data{
+    my $self = shift;
+    my @data;
+
+    for my $line (split /\\n/, shift) {
+        my @line = split(/\W+/, $line);
+        push @data, \@line;
+    }
+
+    return @data;
+}
+
 1;
