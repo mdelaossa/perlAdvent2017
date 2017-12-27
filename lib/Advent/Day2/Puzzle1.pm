@@ -1,8 +1,8 @@
 package Advent::Day2::Puzzle1;
 use strict;
 use warnings FATAL => 'all';
-
 use List::Util qw(min max);
+use parent 'Advent::Solver';
 
 sub solve {
     my $self = shift;

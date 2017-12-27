@@ -1,6 +1,7 @@
 package Advent::Day2::Puzzle2;
 use strict;
 use warnings FATAL => 'all';
+use parent 'Advent::Solver';
 
 sub solve {
     my $self = shift;

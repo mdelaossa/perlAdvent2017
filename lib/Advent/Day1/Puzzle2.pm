@@ -1,6 +1,7 @@
 package Advent::Day1::Puzzle2;
 use strict;
 use warnings FATAL => 'all';
+use parent 'Advent::Solver';
 
 sub solve {
     my $self = shift;
@@ -16,10 +17,6 @@ sub solve {
     for (@sums) { $sum += $_ }
 
     return $sum;
-}
-
-sub prepare_data{
-    return $_[1] ;
 }
 
 1;
